@@ -14,8 +14,13 @@ div.main {
     margin-top: 0;
     margin-bottom: 0;
     background-color: #CCC;
+    border-radius: .5em;
 
     padding: 1em;
+}
+
+.recentprints ul {
+    list-style-type: none;
 }
 
 h3 {
@@ -28,5 +33,21 @@ p.error {
 }
 
 form.fileupload {
+    border: 1px solid black;
+}
+
+.flash-error {
+    padding: 1em;
+    font-size: 1.5em;
+    background-color: #ff7287;
+    border-radius: .5em;
+    border: 1px solid black;
+}
+
+.flash-success {
+    padding: 1em;
+    font-size: 1.5em;
+    background-color: #72ff93;
+    border-radius: .5em;
     border: 1px solid black;
 }

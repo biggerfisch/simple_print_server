@@ -1,0 +1,9 @@
+<!doctype html>
+<title>1076 #104 Print Server</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class='flash-{{ category }}'>{{ message }}</div>
+    {% endfor %}
+    {% block body %}{% endblock %}
+</div>

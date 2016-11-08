@@ -12,8 +12,14 @@
         </form>
     </div>
     <div class="recentprints">
-        <h3>Recent Prints</h3>
-        TODO
+        <h3>Recent Prints:</h3>
+        <ul>
+        {% for print in recent %}
+        <li>{{ print.filename }} - {{ print.uuid }} - {{ print.time_printed }}</li>
+        {% else %}
+            <li><em>No recent prints!</em></li>
+        {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}
