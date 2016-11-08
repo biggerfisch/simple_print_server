@@ -32,10 +32,11 @@ def upload_file():
             return redirect(request.url)
         if file_to_upload and allowed_file(file_to_upload.filename):
             # filename = secure_filename(file_to_upload.filename)
-            filename = uuid.uuid4()
-            file_to_upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filename = str(uuid.uuid4())
+            fullpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file_to_upload.save(fullpath)
 
-            subprocess.Popen(["lpr", filename])
+            subprocess.Popen(["lpr", fullpath])
 
             return '''
             Thanks! Filename: {}
