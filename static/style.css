@@ -1,0 +1,32 @@
+body {
+    font-size: 16px;
+    font-family: sans-serif;
+    width: 56em;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #999;
+}
+
+div.main {
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: #CCC;
+
+    padding: 1em;
+}
+
+h3 {
+    margin: 0;
+}
+
+p.error {
+    color: red;
+    font-size: 2em;
+}
+
+form.fileupload {
+    border: 1px solid black;
+}
