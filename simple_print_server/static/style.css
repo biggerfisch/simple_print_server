@@ -41,7 +41,6 @@ form.fileupload {
     font-size: 1.5em;
     background-color: #ff7287;
     border-radius: .5em;
-    border: 1px solid black;
 }
 
 .flash-success {
@@ -49,5 +48,4 @@ form.fileupload {
     font-size: 1.5em;
     background-color: #72ff93;
     border-radius: .5em;
-    border: 1px solid black;
 }
