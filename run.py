@@ -1,4 +1,5 @@
 #!/usr/bin/env python
 from simple_print_server import app
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
