@@ -48,9 +48,13 @@ def upload_file():
             subprocess.Popen([app.config['PRINT_COMMAND'], fullpath])
             flash('Printing!', 'success')
             return redirect(request.url)
-        else:
-            flash('Bad file or something', 'danger')
+        elif not allowed_file(file_to_upload.filename):
+            flash('Bad filetype', 'danger')
             return redirect(request.url)
+        else:
+            flash('Unknown error!', 'danger')
+            return redirect(request.url)
+
     else:
         recent_files = list(PrintedFile.query.order_by(PrintedFile.id.desc()).limit(5))
         return render_template('index.html', recent=recent_files)
