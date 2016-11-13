@@ -90,3 +90,4 @@ ENV/
 
 # local uploads
 uploads/
+.DS_store
