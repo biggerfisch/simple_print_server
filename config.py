@@ -1,9 +1,9 @@
-DEBUG = True
+# DEBUG = True
 
 DATABASE_PATH = '/tmp/test.db'
 DATABASE_URL = 'sqlite:///{}'.format(DATABASE_PATH)
 
-PRINT_COMMAND = 'echo'
+PRINT_COMMAND = 'lpr'
 
 MAX_CONTENT_LENGTH = 128 * 1024 * 1024 # 128 MB
 UPLOAD_FOLDER = './uploads'
