@@ -19,8 +19,10 @@
     <body>
         <div class="container">
             {% for category, message in get_flashed_messages(with_categories=true) %}
-            <div class="flash-messages text-center bg-{{ category }}">
-                <p>{{ message }}</p>
+            <div class="row">
+                <div class="flash-messages text-center bg-{{ category }} col-md-4 col-md-offset-4">
+                    <p>{{ message }}</p>
+                </div>
             </div>
             {% endfor %}
             {% block body %}{% endblock %}
