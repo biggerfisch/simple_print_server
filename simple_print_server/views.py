@@ -26,13 +26,13 @@ def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part', 'error')
+            flash('No file part', 'danger')
             return redirect(request.url)
         file_to_upload = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file_to_upload.filename == '':
-            flash('No selected file', 'error')
+            flash('No selected file', 'danger')
             return redirect(request.url)
         if file_to_upload and allowed_file(file_to_upload.filename):
             # filename = secure_filename(file_to_upload.filename)
@@ -49,8 +49,8 @@ def upload_file():
             flash('Printing!', 'success')
             return redirect(request.url)
         else:
-            flash('Bad file or something', 'error')
+            flash('Bad file or something', 'danger')
             return redirect(request.url)
     else:
-        recent_files = PrintedFile.query.order_by(PrintedFile.id.desc()).limit(5)
+        recent_files = list(PrintedFile.query.order_by(PrintedFile.id.desc()).limit(5))
         return render_template('index.html', recent=recent_files)

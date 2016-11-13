@@ -3,23 +3,41 @@
 <div class='main'>
 {% if error %}<p class='error'><strong>Error:</strong> {{ error }}{% endif %}
 
-    <h3> Upload a file to be printed. Allowed types: .pdf, .txt, .jpg, .png </h3>
-    <div class="uploadform">
-        <form action="" method='post' enctype='multipart/form-data' class='fileupload'>
-            <input type='file' name='file'>
-            <br>
-            <input type='submit' value='Upload'>
-        </form>
+    <h4 class="text-center"> Upload a file to be printed. Allowed types: .pdf, .txt, .jpg, .png</h4>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file_to_print">File input</label>
+                    <input type="file" id="file_to_print" name="file">
+                </div>
+                <button type="submit" class="btn btn-default">Print</button>
+            </form>
+        </div>
     </div>
-    <div class="recentprints">
-        <h3>Recent Prints:</h3>
-        <ul>
-        {% for print in recent %}
-        <li>{{ print.filename }} - {{ print.uuid }} - {{ print.time_printed }}</li>
+    <hr>
+    <div class="text-center">
+        <h4>Recent Prints</h4>
+        {% if recent|length > 0 %}
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Filename</th>
+                    <th>UUID</th>
+                    <th>Time Printed</th>
+                </tr>
+            </thead>
+            {% for print in recent %}
+            <tr>
+                <td>{{ print.filename }}</td>
+                <td>{{ print.uuid }}</td>
+                <td>{{ print.time_printed }}</td>
+            </tr>
+            {% endfor %}
+        </table>
         {% else %}
-            <li><em>No recent prints!</em></li>
-        {% endfor %}
-        </ul>
+        <p><em>No recent prints!</em></p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

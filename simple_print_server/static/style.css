@@ -1,51 +1,16 @@
 body {
-    font-size: 16px;
-    font-family: sans-serif;
-    width: 56em;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    background-color: #999;
+    background-color: #ccc;
 }
 
-div.main {
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: #CCC;
-    border-radius: .5em;
+.container {
+    background-color: #fff;
+    border-radius: 0.5em;
+}
 
+.flash-messages {
     padding: 1em;
-}
-
-.recentprints ul {
-    list-style-type: none;
-}
-
-h3 {
+    border-radius: 0.5em;
     margin: 0;
-}
-
-p.error {
-    color: red;
-    font-size: 2em;
-}
-
-form.fileupload {
-    border: 1px solid black;
-}
-
-.flash-error {
-    padding: 1em;
     font-size: 1.5em;
-    background-color: #ff7287;
-    border-radius: .5em;
 }
 
-.flash-success {
-    padding: 1em;
-    font-size: 1.5em;
-    background-color: #72ff93;
-    border-radius: .5em;
-}

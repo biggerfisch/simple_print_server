@@ -1,9 +1,29 @@
-<!doctype html>
-<title>1076 #104 Print Server</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-    {% for category, message in get_flashed_messages(with_categories=true) %}
-    <div class='flash-{{ category }}'>{{ message }}</div>
-    {% endfor %}
-    {% block body %}{% endblock %}
-</div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>1076 #104 Print Server</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+            <div class="flash-messages text-center bg-{{ category }}">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>
