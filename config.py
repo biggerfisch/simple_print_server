@@ -6,7 +6,7 @@ DATABASE_URL = 'sqlite:///{}'.format(DATABASE_PATH)
 PRINT_COMMAND = 'lpr'
 
 MAX_CONTENT_LENGTH = 128 * 1024 * 1024 # 128 MB
-UPLOAD_FOLDER = './uploads'
+BASE_UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg'])
 
 SECRET_KEY = 'Sm9o3iBfY2hyb20ga2ljatMgYXNz'

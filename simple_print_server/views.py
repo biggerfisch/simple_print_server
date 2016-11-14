@@ -3,6 +3,7 @@
 import os
 import subprocess
 import time
+import datetime
 import uuid
 from flask import Flask, request, redirect, url_for, render_template, flash
 from werkzeug.utils import secure_filename
@@ -14,6 +15,15 @@ from simple_print_server import app
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+
+def make_today_folder():
+    today_str = datetime.datetime.today().strftime('%Y%m%d') # Ex) '20161114'
+    full_today_path = os.path.join(app.config['BASE_UPLOAD_FOLDER'], today_str)
+
+    if not os.path.exists(full_today_path):
+        os.mkdir(full_today_path)
+        app.config['TODAY_UPLOAD_FOLDER'] = full_today_path
 
 
 @app.teardown_appcontext
@@ -38,7 +48,9 @@ def upload_file():
             # filename = secure_filename(file_to_upload.filename)
             filename = str(uuid.uuid4())
             f = PrintedFile(file_to_upload.filename, filename)
-            fullpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+            make_today_folder()
+            fullpath = os.path.join(app.config['TODAY_UPLOAD_FOLDER'], filename)
             file_to_upload.save(fullpath)
 
             db_session.add(f)
