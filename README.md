@@ -24,7 +24,8 @@ Setting it up
 
 And we're off to the races! Note that you may need to do one of
  * Edit `run.py` to pass 'host=0.0.0.0' in `app.run()`
- * Do something else to forward the local port
+ * Do something else to forward the local port  
+
 if you want other computers to see the server
 
 
