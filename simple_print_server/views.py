@@ -31,42 +31,42 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['POST'])
 def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part', 'danger')
-            return redirect(request.url)
-        file_to_upload = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file_to_upload.filename == '':
-            flash('No selected file', 'danger')
-            return redirect(request.url)
-        if file_to_upload and allowed_file(file_to_upload.filename):
-            # filename = secure_filename(file_to_upload.filename)
-            filename = str(uuid.uuid4())
-            f = PrintedFile(file_to_upload.filename, filename)
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        flash('No file part', 'danger')
+        return redirect(request.url)
 
-            make_today_folder()
-            fullpath = os.path.join(app.config['TODAY_UPLOAD_FOLDER'], filename)
-            file_to_upload.save(fullpath)
+    file_to_upload = request.files['file']
+    # if user does not select file, browser also
+    # submit a empty part without filename
+    if file_to_upload.filename == '':
+        flash('No selected file', 'danger')
+    elif file_to_upload and allowed_file(file_to_upload.filename):
+        # filename = secure_filename(file_to_upload.filename)
+        filename = str(uuid.uuid4())
+        f = PrintedFile(file_to_upload.filename, filename)
 
-            db_session.add(f)
-            db_session.commit()
+        make_today_folder()
+        fullpath = os.path.join(app.config['TODAY_UPLOAD_FOLDER'], filename)
+        file_to_upload.save(fullpath)
 
-            # subprocess.Popen(["lpr", fullpath])
-            subprocess.Popen([app.config['PRINT_COMMAND'], fullpath])
-            flash('Printing!', 'success')
-            return redirect(request.url)
-        elif not allowed_file(file_to_upload.filename):
-            flash('Bad filetype', 'danger')
-            return redirect(request.url)
-        else:
-            flash('Unknown error!', 'danger')
-            return redirect(request.url)
+        db_session.add(f)
+        db_session.commit()
 
+        # subprocess.Popen(["lpr", fullpath])
+        subprocess.Popen([app.config['PRINT_COMMAND'], fullpath])
+        flash('Printing!', 'success')
+    elif not allowed_file(file_to_upload.filename):
+        flash('Bad filetype', 'danger')
     else:
-        recent_files = list(PrintedFile.query.order_by(PrintedFile.id.desc()).limit(5))
-        return render_template('index.html', recent=recent_files)
+        flash('Unknown error!', 'danger')
+
+    return redirect(request.url)
+
+
+@app.route('/', methods=['GET'])
+def main_page():
+    recent_files = list(PrintedFile.query.order_by(PrintedFile.id.desc()).limit(5))
+    return render_template('index.html', recent=recent_files)
