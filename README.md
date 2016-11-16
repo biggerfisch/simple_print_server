@@ -32,3 +32,7 @@ if you want other computers to see the server
 Reboot Persistance
 ------------------
 TODO
+
+Screenshot
+----------
+![Example of running application](http://i.imgur.com/poZ6ouj.png)
