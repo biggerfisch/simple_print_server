@@ -12,6 +12,8 @@ from simple_print_server.database import db_session
 from simple_print_server.models import PrintedFile
 from simple_print_server import app
 
+import logging
+logger = logging.getLogger(__name__)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
@@ -23,6 +25,10 @@ def make_today_folder():
 
     if not os.path.exists(full_today_path):
         os.mkdir(full_today_path)
+        app.config['TODAY_UPLOAD_FOLDER'] = full_today_path
+        logger.info('Changed today\'s upload folder to {}'.format(full_today_path))
+    elif not 'TODAY_UPLOAD_FOLDER' in app.config:
+        # This happens when the server has been restarted in the same day, nothing to worry about
         app.config['TODAY_UPLOAD_FOLDER'] = full_today_path
 
 
@@ -57,6 +63,7 @@ def upload_file():
 
         # subprocess.Popen(["lpr", fullpath])
         subprocess.Popen([app.config['PRINT_COMMAND'], fullpath])
+        logger.info('Printed file with uuid "{}"'.format(filename))
         flash('Printing!', 'success')
     elif not allowed_file(file_to_upload.filename):
         flash('Bad filetype', 'danger')
