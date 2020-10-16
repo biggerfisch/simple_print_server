@@ -1,9 +1,11 @@
+import os
+
 # DEBUG = True
 
-DATABASE_PATH = '/tmp/test.db'
+DATABASE_PATH = os.path.join(os.getcwd(), 'sqlite.db')
 DATABASE_URL = 'sqlite:///{}'.format(DATABASE_PATH)
 
-PRINT_COMMAND = 'lpr'
+PRINT_COMMAND = 'lp'
 
 MAX_CONTENT_LENGTH = 128 * 1024 * 1024 # 128 MB
 BASE_UPLOAD_FOLDER = './uploads'
