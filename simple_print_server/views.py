@@ -36,6 +36,9 @@ def make_today_folder():
 def shutdown_session(exception=None):
     db_session.remove()
 
+def log_subprocess_output(pipe):
+    for line in iter(pipe.readline, b''): # b'\n'-separated lines
+        logging.info('%r', line)
 
 @app.route('/', methods=['POST'])
 def upload_file():
@@ -51,7 +54,7 @@ def upload_file():
         flash('No selected file', 'danger')
     elif file_to_upload and allowed_file(file_to_upload.filename):
         # filename = secure_filename(file_to_upload.filename)
-        filename = str(uuid.uuid4())
+        filename = "{}{}".format(str(uuid.uuid4()), os.path.splitext(file_to_upload.filename)[1])
         f = PrintedFile(file_to_upload.filename, filename)
 
         make_today_folder()
@@ -61,10 +64,16 @@ def upload_file():
         db_session.add(f)
         db_session.commit()
 
-        # subprocess.Popen(["lpr", fullpath])
-        subprocess.Popen([app.config['PRINT_COMMAND'], fullpath])
-        logger.info('Printed file with uuid "{}"'.format(filename))
-        flash('Printing!', 'success')
+        # subprocess.Popen(["lp", fullpath])
+        process = subprocess.Popen([app.config['PRINT_COMMAND'], fullpath], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        with process.stdout:
+            log_subprocess_output(process.stdout)
+        exitcode = process.wait() # 0 means success
+        if exitcode == 0:
+            logger.info('Printed file with uuid "{}"'.format(filename))
+            flash('Printing!', 'success')
+        else:
+            flash('Error!', 'danger')
     elif not allowed_file(file_to_upload.filename):
         flash('Bad filetype', 'danger')
     else:
